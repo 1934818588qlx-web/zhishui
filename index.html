@@ -224,7 +224,8 @@
   .kicker::before,
   #route > h2::before,
   .tips > h2::before,
-  .budget > h2::before {
+  .budget > h2::before,
+  #wall > h2::before {
     content: "❆";
     margin-right: .4em;
     font-weight: 400;
@@ -352,6 +353,74 @@
     line-height: 1.65;
   }
 
+  .wall h3 {
+    margin: 26px 0 8px;
+    font-family: var(--serif);
+    font-size: 1.25rem;
+  }
+  .namebar, .rowform {
+    display: flex;
+    gap: 8px;
+    margin: 8px 0 4px;
+  }
+  .namebar input, .rowform input, .rowform select, .sqlbox {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    font: inherit;
+    font-size: 15px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .62);
+    color: var(--ink);
+  }
+  .rowform button, .mini, .copy-sql {
+    flex: none;
+    font: inherit;
+    font-size: 14px;
+    border: 0;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 999px;
+    padding: 0 14px;
+    min-height: 42px;
+    cursor: pointer;
+  }
+  .mini.ghost { background: transparent; color: var(--soft); border: 1px solid var(--line); }
+  .mini.on { background: var(--red); }
+  .vote, .wish, .task, .cost {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px 12px;
+    align-items: center;
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+  }
+  .vote b, .cost b { font-variant-numeric: tabular-nums; color: var(--red); }
+  .task { grid-template-columns: 1fr; }
+  .task p, .wish span, .cost small { margin: 4px 0 0; color: var(--soft); font-size: 14px; line-height: 1.55; }
+  .task .who { color: var(--pine); font-size: 14px; }
+  .task .actions { display: flex; gap: 8px; margin-top: 8px; }
+  .aa-sum {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .aa-sum div {
+    background: var(--night);
+    color: #f3d2cb;
+    border-radius: 12px;
+    padding: 12px;
+  }
+  .aa-sum span { display: block; color: #c9d2d6; font-size: 12px; letter-spacing: .06em; }
+  .aa-sum strong { font-size: 1.45rem; font-variant-numeric: tabular-nums; }
+  .wall-msg { margin: 8px 0 0; color: var(--red); font-size: 14px; line-height: 1.6; }
+  .hint { margin: 6px 0 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+  .sqlbox { display: block; min-height: 140px; margin-top: 8px; font-family: Consolas, "Source Code Pro", monospace; font-size: 12px; line-height: 1.45; }
+  #wall-app[hidden], #wall-setup[hidden] { display: none; }
+
   @media (max-width: 560px) {
     body { background: var(--paper); }
   }
@@ -410,6 +479,7 @@
     <a href="#d5">五日</a>
     <a href="#budget">预算</a>
     <a href="#tips">贴士</a>
+    <a href="#wall">共创</a>
   </nav>
 
   <main>
@@ -804,11 +874,313 @@
         </div>
       </article>
     </section>
+
+    <section class="wall" id="wall">
+      <h2>共创</h2>
+      <p class="lead">打开这个链接的人都能投票、加想去的地方、认领任务，并改 AA。几秒内会同步到其他人的手机。</p>
+      <div id="wall-setup" hidden>
+        <p class="wall-msg">数据库还没建表。在 Supabase 左侧打开 SQL Editor，新建查询，把下面的语句整段运行一次，然后刷新本页。</p>
+        <button class="copy-sql" type="button">复制建表语句</button>
+        <textarea class="sqlbox" id="sqlbox" readonly></textarea>
+      </div>
+      <div id="wall-app" hidden>
+        <div class="namebar">
+          <input id="myname" maxlength="20" placeholder="你的名字，认领任务时用" autocomplete="nickname">
+        </div>
+        <h3>景点投票</h3>
+        <div id="vote-list"></div>
+        <h3>想去清单</h3>
+        <form class="rowform" id="wish-form">
+          <input id="wish-title" maxlength="40" placeholder="例如王家大院、镇国寺" required>
+          <button type="submit">加上</button>
+        </form>
+        <div id="wish-list"></div>
+        <p class="hint" id="wish-empty">还没有额外想去的地方。</p>
+        <h3>任务</h3>
+        <div id="task-list"></div>
+        <h3>AA 预算</h3>
+        <form class="rowform" id="people-form">
+          <input id="people" type="number" min="1" max="30" value="2" inputmode="numeric" aria-label="出行人数">
+          <button type="submit">更新人数</button>
+        </form>
+        <p class="hint">「每人」会乘人数算进总额；「全团」先加总，再除以人数。高铁、门票、餐饮按每人，住宿和包车按全团。</p>
+        <div id="cost-list"></div>
+        <form class="rowform" id="cost-form">
+          <input id="cost-name" maxlength="20" placeholder="项目" required>
+          <input id="cost-amount" type="number" min="0" step="1" placeholder="金额" required>
+          <select id="cost-scope" aria-label="分摊方式">
+            <option value="group">全团</option>
+            <option value="each">每人</option>
+          </select>
+          <button type="submit">添加</button>
+        </form>
+        <div class="aa-sum">
+          <div><span>全团合计</span><strong id="grand">0</strong></div>
+          <div><span>人均</span><strong id="per">0</strong></div>
+        </div>
+        <p class="wall-msg" id="wall-msg"></p>
+      </div>
+    </section>
   </main>
   <footer>
     票价、车程和开放时间按 2026 年 11 月仍能核对到的公开信息整理，出行前以 12306 和景区当日公告为准。平遥通票一般含城墙、日升昌、县衙，不含双林寺，进门前再看一眼当日项目。云冈 4 月至 10 月是旺季票，大约 120 元。
   </footer>
 </div>
+<script>
+(function () {
+  var SB_URL = "https://venydppwexsqstismpuz.supabase.co";
+  var SB_KEY = "sb_publishable_1sB-6R3zow9dX8wTdOnWaQ_pUXAIfoN";
+  var SPOTS = ["晋祠", "平遥古城", "双林寺", "乔家大院", "云冈石窟", "华严寺", "应县木塔", "悬空寺"];
+  var TASKS = [
+    { id: "rail", title: "订往返高铁", detail: "太原到平遥、祁县东回太原、太原和大同一来一回，买二等座。" },
+    { id: "stay", title: "订四晚住宿", detail: "太原两晚、平遥一晚、大同一晚。下单前问清有没有暖气。" },
+    { id: "car", title: "订第五天包车", detail: "大同到应县、悬空寺，再送到大同南站，费用含等候。" }
+  ];
+  var SEED = [
+    { id: "rail-fee", name: "高铁二等座", amount: 275, scope: "each" },
+    { id: "tickets", name: "门票", amount: 670, scope: "each" },
+    { id: "meals", name: "餐饮", amount: 500, scope: "each" },
+    { id: "rooms", name: "住宿四晚", amount: 1100, scope: "group" },
+    { id: "cars", name: "市内与包车", amount: 1190, scope: "group" }
+  ];
+  var SQL = [
+    "create table if not exists public.votes (id uuid primary key default gen_random_uuid(), spot text not null, created_at timestamptz not null default now());",
+    "create table if not exists public.wishes (id uuid primary key default gen_random_uuid(), title text not null, created_at timestamptz not null default now());",
+    "create table if not exists public.tasks (id text primary key, title text not null, detail text not null, claimer text, claimed_at timestamptz);",
+    "create table if not exists public.expenses (id text primary key, name text not null, amount numeric not null, scope text not null check (scope in ('group','each')));",
+    "create table if not exists public.trip_settings (id int primary key, people int not null default 2 check (people between 1 and 30));",
+    "alter table public.votes enable row level security;",
+    "alter table public.wishes enable row level security;",
+    "alter table public.tasks enable row level security;",
+    "alter table public.expenses enable row level security;",
+    "alter table public.trip_settings enable row level security;",
+    "grant select, insert, delete on public.votes to anon, authenticated;",
+    "grant select, insert, delete on public.wishes to anon, authenticated;",
+    "grant select, insert, update on public.tasks to anon, authenticated;",
+    "grant select, insert, update, delete on public.expenses to anon, authenticated;",
+    "grant select, insert, update on public.trip_settings to anon, authenticated;",
+    "drop policy if exists wall_all on public.votes; create policy wall_all on public.votes for all to anon, authenticated using (true) with check (true);",
+    "drop policy if exists wall_all on public.wishes; create policy wall_all on public.wishes for all to anon, authenticated using (true) with check (true);",
+    "drop policy if exists wall_all on public.tasks; create policy wall_all on public.tasks for all to anon, authenticated using (true) with check (true);",
+    "drop policy if exists wall_all on public.expenses; create policy wall_all on public.expenses for all to anon, authenticated using (true) with check (true);",
+    "drop policy if exists wall_all on public.trip_settings; create policy wall_all on public.trip_settings for all to anon, authenticated using (true) with check (true);"
+  ].join("\n");
+
+  var votes = [];
+  var wishes = [];
+  var tasks = [];
+  var costs = [];
+  var people = 2;
+  var ready = false;
+  var mine = {};
+  try { mine = JSON.parse(localStorage.getItem("trip-votes") || "{}"); } catch (e) { mine = {}; }
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+  function yuan(n) {
+    return Math.round(n).toLocaleString("zh-CN");
+  }
+  function sb(path, opts) {
+    opts = opts || {};
+    var headers = { apikey: SB_KEY, Accept: "application/json", "Content-Type": "application/json" };
+    if (opts.prefer) headers.Prefer = opts.prefer;
+    return fetch(SB_URL + "/rest/v1/" + path, {
+      method: opts.method || "GET",
+      headers: headers,
+      body: opts.body == null ? undefined : JSON.stringify(opts.body)
+    }).then(function (r) {
+      return r.text().then(function (t) {
+        var data = null;
+        if (t) { try { data = JSON.parse(t); } catch (e) { data = { message: t }; } }
+        if (!r.ok) {
+          var err = new Error((data && data.message) || ("HTTP " + r.status));
+          err.code = data && data.code;
+          throw err;
+        }
+        return data;
+      });
+    });
+  }
+  function say(text) {
+    var el = document.getElementById("wall-msg");
+    if (el) el.textContent = text || "";
+  }
+  function render() {
+    var voteHost = document.getElementById("vote-list");
+    var counts = {};
+    votes.forEach(function (v) { counts[v.spot] = (counts[v.spot] || 0) + 1; });
+    voteHost.innerHTML = SPOTS.map(function (spot) {
+      var n = counts[spot] || 0;
+      var on = mine[spot] ? " on" : "";
+      return '<div class="vote"><span>' + esc(spot) + '</span><span><b>' + n + '</b><button class="mini' + on + '" type="button" data-act="vote" data-spot="' + esc(spot) + '">' + (mine[spot] ? "已赞" : "点赞") + '</button></span></div>';
+    }).join("");
+
+    var wishHost = document.getElementById("wish-list");
+    document.getElementById("wish-empty").hidden = wishes.length > 0;
+    wishHost.innerHTML = wishes.map(function (w) {
+      return '<div class="wish"><span>' + esc(w.title) + '</span><button class="mini ghost" type="button" data-act="del-wish" data-id="' + esc(w.id) + '">删除</button></div>';
+    }).join("");
+
+    var byId = {};
+    tasks.forEach(function (t) { byId[t.id] = t; });
+    document.getElementById("task-list").innerHTML = TASKS.map(function (seed) {
+      var t = byId[seed.id] || seed;
+      var who = t.claimer ? '<p class="who">认领人：' + esc(t.claimer) + '</p>' : '<p class="who">还没有人认领</p>';
+      var btn = t.claimer
+        ? '<button class="mini ghost" type="button" data-act="unclaim" data-id="' + esc(seed.id) + '">撤销认领</button>'
+        : '<button class="mini" type="button" data-act="claim" data-id="' + esc(seed.id) + '">我来认领</button>';
+      return '<article class="task"><strong>' + esc(t.title || seed.title) + '</strong><p>' + esc(t.detail || seed.detail) + '</p>' + who + '<div class="actions">' + btn + '</div></article>';
+    }).join("");
+
+    document.getElementById("cost-list").innerHTML = costs.map(function (c) {
+      var tag = c.scope === "each" ? "每人 " + yuan(c.amount) + " 元" : "全团 " + yuan(c.amount) + " 元";
+      return '<div class="cost"><div><strong>' + esc(c.name) + '</strong><small>' + tag + '</small></div><button class="mini ghost" type="button" data-act="del-cost" data-id="' + esc(c.id) + '">删除</button></div>';
+    }).join("");
+
+    var n = Math.max(1, people || 1);
+    var grand = 0;
+    var per = 0;
+    costs.forEach(function (c) {
+      var a = Number(c.amount) || 0;
+      if (c.scope === "each") { per += a; grand += a * n; }
+      else { grand += a; per += a / n; }
+    });
+    document.getElementById("grand").textContent = yuan(grand);
+    document.getElementById("per").textContent = yuan(per);
+    var peopleInput = document.getElementById("people");
+    if (document.activeElement !== peopleInput) peopleInput.value = String(n);
+  }
+  function load() {
+    return Promise.all([
+      sb("votes?select=id,spot"),
+      sb("wishes?select=id,title,created_at&order=created_at.desc"),
+      sb("tasks?select=id,title,detail,claimer"),
+      sb("expenses?select=id,name,amount,scope"),
+      sb("trip_settings?select=id,people&id=eq.1")
+    ]).then(function (all) {
+      votes = all[0] || [];
+      wishes = all[1] || [];
+      tasks = all[2] || [];
+      costs = all[3] || [];
+      people = (all[4] && all[4][0] && all[4][0].people) || 2;
+      document.getElementById("wall-setup").hidden = true;
+      document.getElementById("wall-app").hidden = false;
+      ready = true;
+      render();
+      if (!seeded && (!tasks.length || !costs.length || !(all[4] && all[4][0]))) {
+        seeded = true;
+        return seed();
+      }
+    });
+  }
+  var seeded = false;
+  function seed() {
+    return sb("tasks?on_conflict=id", { method: "POST", prefer: "resolution=ignore-duplicates,return=minimal", body: TASKS })
+      .then(function () { return sb("expenses?on_conflict=id", { method: "POST", prefer: "resolution=ignore-duplicates,return=minimal", body: SEED }); })
+      .then(function () { return sb("trip_settings?on_conflict=id", { method: "POST", prefer: "resolution=ignore-duplicates,return=minimal", body: [{ id: 1, people: 2 }] }); })
+      .then(load);
+  }
+  function needName() {
+    var name = document.getElementById("myname").value.trim();
+    if (!name) { say("先在最上面写下你的名字。"); document.getElementById("myname").focus(); return ""; }
+    localStorage.setItem("trip-name", name);
+    return name;
+  }
+
+  document.getElementById("sqlbox").value = SQL;
+  document.querySelector(".copy-sql").addEventListener("click", function () {
+    var box = document.getElementById("sqlbox");
+    box.select();
+    navigator.clipboard.writeText(SQL).then(function () { say("建表语句已复制。"); }, function () { say("请在文本框里全选复制。"); });
+  });
+  var savedName = localStorage.getItem("trip-name") || "";
+  document.getElementById("myname").value = savedName;
+  document.getElementById("myname").addEventListener("change", function () {
+    localStorage.setItem("trip-name", this.value.trim());
+  });
+
+  document.getElementById("wall").addEventListener("click", function (e) {
+    var btn = e.target.closest("button");
+    if (!btn || !ready) return;
+    var act = btn.getAttribute("data-act");
+    if (!act) return;
+    say("");
+    var done = Promise.resolve();
+    if (act === "vote") {
+      var spot = btn.getAttribute("data-spot");
+      if (mine[spot]) {
+        done = sb("votes?id=eq." + mine[spot], { method: "DELETE" }).then(function () {
+          delete mine[spot];
+          localStorage.setItem("trip-votes", JSON.stringify(mine));
+        });
+      } else {
+        done = sb("votes", { method: "POST", prefer: "return=representation", body: { spot: spot } }).then(function (rows) {
+          mine[spot] = rows[0].id;
+          localStorage.setItem("trip-votes", JSON.stringify(mine));
+        });
+      }
+    } else if (act === "del-wish") {
+      done = sb("wishes?id=eq." + btn.getAttribute("data-id"), { method: "DELETE" });
+    } else if (act === "del-cost") {
+      done = sb("expenses?id=eq." + btn.getAttribute("data-id"), { method: "DELETE" });
+    } else if (act === "claim") {
+      var name = needName();
+      if (!name) return;
+      done = sb("tasks?id=eq." + btn.getAttribute("data-id"), { method: "PATCH", prefer: "return=minimal", body: { claimer: name, claimed_at: new Date().toISOString() } });
+    } else if (act === "unclaim") {
+      done = sb("tasks?id=eq." + btn.getAttribute("data-id"), { method: "PATCH", prefer: "return=minimal", body: { claimer: null, claimed_at: null } });
+    }
+    done.then(load).catch(function (err) { say(err.message || "没有保存成功。"); });
+  });
+
+  document.getElementById("wish-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var input = document.getElementById("wish-title");
+    var title = input.value.trim();
+    if (!title) return;
+    sb("wishes", { method: "POST", prefer: "return=minimal", body: { title: title } })
+      .then(function () { input.value = ""; return load(); })
+      .catch(function (err) { say(err.message || "没有加上。"); });
+  });
+  document.getElementById("people-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var n = Math.max(1, Math.min(30, parseInt(document.getElementById("people").value, 10) || 1));
+    sb("trip_settings?id=eq.1", { method: "PATCH", prefer: "return=minimal", body: { people: n } })
+      .then(load)
+      .catch(function (err) { say(err.message || "人数没有更新。"); });
+  });
+  document.getElementById("cost-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = document.getElementById("cost-name").value.trim();
+    var amount = Number(document.getElementById("cost-amount").value);
+    var scope = document.getElementById("cost-scope").value === "each" ? "each" : "group";
+    if (!name || !(amount >= 0)) return;
+    var id = "x" + Date.now().toString(36);
+    sb("expenses", { method: "POST", prefer: "return=minimal", body: { id: id, name: name, amount: amount, scope: scope } })
+      .then(function () {
+        document.getElementById("cost-name").value = "";
+        document.getElementById("cost-amount").value = "";
+        return load();
+      })
+      .catch(function (err) { say(err.message || "没有加上。"); });
+  });
+
+  load().catch(function (err) {
+    if (err.code === "PGRST205" || /schema cache|relation|table/i.test(err.message || "")) {
+      document.getElementById("wall-setup").hidden = false;
+      document.getElementById("wall-app").hidden = true;
+    } else {
+      document.getElementById("wall-setup").hidden = false;
+      document.getElementById("wall-app").hidden = true;
+      say(err.message || "暂时连不上共创墙。");
+    }
+  });
+  setInterval(function () { if (ready) load().catch(function () {}); }, 4000);
+})();
+</script>
 <script>
 (function () {
   var links = [].slice.call(document.querySelectorAll(".nav a"));
