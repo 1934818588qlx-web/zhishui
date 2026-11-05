@@ -143,19 +143,32 @@
     display: flex;
     gap: 6px;
     overflow-x: auto;
-    padding: 10px 14px;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 14px 10px;
     background: rgba(243, 239, 230, .94);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--line);
     scrollbar-width: none;
   }
   .nav::-webkit-scrollbar { display: none; }
+  .nav::after { content: ""; flex: 0 0 16px; }
+  .wall-entry {
+    display: block;
+    padding: 12px 20px;
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    letter-spacing: .08em;
+  }
   .nav a {
     flex: none;
     display: inline-flex;
     align-items: center;
-    min-height: 40px;
+    min-height: 44px;
     padding: 0 12px;
+    touch-action: manipulation;
     border-radius: 999px;
     text-decoration: none;
     color: var(--soft);
@@ -423,6 +436,9 @@
 
   @media (max-width: 560px) {
     body { background: var(--paper); }
+    #cost-form { flex-wrap: wrap; }
+    #cost-form input { flex: 1 1 42%; }
+    #cost-form select, #cost-form button { flex: 1 1 auto; }
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -481,6 +497,7 @@
     <a href="#tips">贴士</a>
     <a href="#wall">共创</a>
   </nav>
+  <a class="wall-entry" href="#wall">打开共创行程墙</a>
 
   <main>
     <section id="route">
@@ -883,7 +900,7 @@
         <button class="copy-sql" type="button">复制建表语句</button>
         <textarea class="sqlbox" id="sqlbox" readonly></textarea>
       </div>
-      <div id="wall-app" hidden>
+      <div id="wall-app">
         <div class="namebar">
           <input id="myname" maxlength="20" placeholder="你的名字，认领任务时用" autocomplete="nickname">
         </div>
@@ -987,11 +1004,15 @@
     opts = opts || {};
     var headers = { apikey: SB_KEY, Accept: "application/json", "Content-Type": "application/json" };
     if (opts.prefer) headers.Prefer = opts.prefer;
+    var ctrl = typeof AbortController === "function" ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 8000) : null;
     return fetch(SB_URL + "/rest/v1/" + path, {
       method: opts.method || "GET",
       headers: headers,
-      body: opts.body == null ? undefined : JSON.stringify(opts.body)
+      body: opts.body == null ? undefined : JSON.stringify(opts.body),
+      signal: ctrl ? ctrl.signal : undefined
     }).then(function (r) {
+      if (timer) clearTimeout(timer);
       return r.text().then(function (t) {
         var data = null;
         if (t) { try { data = JSON.parse(t); } catch (e) { data = { message: t }; } }
@@ -1002,6 +1023,10 @@
         }
         return data;
       });
+    }, function (err) {
+      if (timer) clearTimeout(timer);
+      if (err && err.name === "AbortError") throw new Error("手机网络连不上同步服务，请换 Wi-Fi 或稍后再试。");
+      throw err;
     });
   }
   function say(text) {
@@ -1096,7 +1121,8 @@
     box.select();
     navigator.clipboard.writeText(SQL).then(function () { say("建表语句已复制。"); }, function () { say("请在文本框里全选复制。"); });
   });
-  var savedName = localStorage.getItem("trip-name") || "";
+  var savedName = "";
+  try { savedName = localStorage.getItem("trip-name") || ""; } catch (e) { savedName = ""; }
   document.getElementById("myname").value = savedName;
   document.getElementById("myname").addEventListener("change", function () {
     localStorage.setItem("trip-name", this.value.trim());
@@ -1168,15 +1194,18 @@
       .catch(function (err) { say(err.message || "没有加上。"); });
   });
 
-  load().catch(function (err) {
-    if (err.code === "PGRST205" || /schema cache|relation|table/i.test(err.message || "")) {
+  costs = SEED.slice();
+  tasks = TASKS.slice();
+  render();
+  say("正在同步…");
+  load().then(function () { say(""); }).catch(function (err) {
+    if (err.code === "PGRST205" || /schema cache|Could not find the table/i.test(err.message || "")) {
       document.getElementById("wall-setup").hidden = false;
       document.getElementById("wall-app").hidden = true;
-    } else {
-      document.getElementById("wall-setup").hidden = false;
-      document.getElementById("wall-app").hidden = true;
-      say(err.message || "暂时连不上共创墙。");
+      return;
     }
+    document.getElementById("wall-app").hidden = false;
+    say(err.message || "暂时连不上同步服务，投票和清单先显示在这台手机上。");
   });
   setInterval(function () { if (ready) load().catch(function () {}); }, 4000);
 })();
