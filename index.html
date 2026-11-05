@@ -1,1 +1,840 @@
-<h1>hello world !!!</h1>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#17232c">
+<meta name="description" content="山西五日冬季手册：晋祠、平遥、乔家大院、云冈石窟、应县木塔与悬空寺。含每日交通、停留时间、路线、预算和贴士。">
+<title>山西五日 · 冬季手册</title>
+<style>
+  :root {
+    --paper: #f3efe6;
+    --paper-2: #e8e2d4;
+    --ink: #1c1916;
+    --soft: #4e473f;
+    --muted: #7a7166;
+    --line: rgba(28, 25, 22, .14);
+    --red: #9c3a2c;
+    --pine: #23423c;
+    --night: #17232c;
+    --snow: #f4f7f8;
+    --flake: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><g fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'><path d='M50 6v88M8 50h84M18 18l64 64M82 18L18 82'/><path d='M50 18l-9 9M50 18l9 9M50 82l-9-9M50 82l9-9M18 50l9-9M18 50l9 9M82 50l-9-9M82 50l-9 9M32 32l-8-1M32 32l-1-8M68 32l8-1M68 32l1-8M32 68l-8 1M32 68l-1 8M68 68l8 1M68 68l1 8'/></g></svg>");
+    --serif: "Songti SC", "STSong", "SimSun", "Noto Serif SC", serif;
+    --sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: #d4e0e8;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .book {
+    width: min(100%, 32rem);
+    margin: 0 auto;
+    background: var(--paper);
+    min-height: 100vh;
+  }
+  a { color: inherit; }
+  a:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+  ::selection { background: #f0d2cb; }
+
+  .cover {
+    position: relative;
+    isolation: isolate;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px 20px 18px;
+    overflow: hidden;
+    color: #f6f3ec;
+  }
+  .photo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 42%;
+  }
+  .cover-shade {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(180deg, rgba(12, 24, 36, .28) 0%, rgba(12, 24, 36, .02) 34%, rgba(12, 24, 36, .18) 58%, rgba(10, 16, 24, .84) 100%);
+  }
+  .snow {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .snow i {
+    position: absolute;
+    top: -14%;
+    width: 18px;
+    height: 18px;
+    background: var(--flake) center / contain no-repeat;
+    opacity: .82;
+    animation: drift linear infinite;
+    filter: drop-shadow(0 1px 1px rgba(20, 32, 48, .25));
+  }
+  @keyframes drift {
+    to { transform: translate3d(16px, 118vh, 0) rotate(200deg); }
+  }
+  .cover-copy { position: relative; z-index: 3; }
+  .eyebrow {
+    margin: 0 0 12px;
+    font-size: 12px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, .84);
+  }
+  h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(2.5rem, 12vw, 3.5rem);
+    line-height: 1.08;
+    letter-spacing: .04em;
+  }
+  h1 span { display: block; }
+  .cover h1 { color: #fff; text-shadow: 0 2px 16px rgba(0, 0, 0, .28); }
+  .lede {
+    margin: 14px 0 18px;
+    color: var(--soft);
+    font-size: 16px;
+    line-height: 1.75;
+  }
+  .cover .lede { color: rgba(246, 243, 236, .94); text-shadow: 0 1px 8px rgba(0, 0, 0, .28); }
+  .specs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 16px 0 8px;
+    padding: 0;
+    list-style: none;
+  }
+  .specs li { border-top: 1px solid var(--line); padding-top: 8px; }
+  .cover .specs li { border-top-color: rgba(255, 255, 255, .32); }
+  .specs strong { display: block; font-size: 15px; font-weight: 650; }
+  .specs span { display: block; margin-top: 2px; color: var(--muted); font-size: 12px; line-height: 1.4; }
+  .cover .specs span { color: rgba(255, 255, 255, .76); }
+  .credit {
+    margin: 10px 0 0;
+    color: rgba(255, 255, 255, .74);
+    font-size: 11px;
+    line-height: 1.55;
+  }
+  .credit a { color: inherit; }
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 10px 14px;
+    background: rgba(243, 239, 230, .94);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 12px;
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--soft);
+    font-size: 14px;
+  }
+  .nav a.on { background: var(--ink); color: var(--paper); }
+
+  section { scroll-margin-top: 64px; padding: 28px 20px 8px; }
+  section h2 {
+    margin: 0 0 8px;
+    font-family: var(--serif);
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: .03em;
+  }
+  .lead { margin: 0 0 16px; color: var(--soft); font-size: 15px; line-height: 1.75; }
+
+  .glance, .legs, .nodes, .facts, .tix { list-style: none; margin: 0; padding: 0; }
+  .glance li, .legs li {
+    display: grid;
+    gap: 8px;
+    align-items: baseline;
+    padding: 10px 0;
+    border-top: 1px solid var(--line);
+    font-size: 14px;
+  }
+  .glance li { grid-template-columns: 3em 1fr auto; }
+  .glance b { color: var(--red); font-weight: 650; }
+  .glance em, .legs span { font-style: normal; color: var(--muted); font-size: 12px; }
+  .legs { margin-top: 12px; }
+  .legs li { grid-template-columns: 1fr auto; }
+  .legs b { font-weight: 600; }
+
+  .map {
+    margin-top: 8px;
+    background: #e6dfd0;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .map svg { display: block; width: 100%; height: auto; }
+  .map-note {
+    display: flex;
+    gap: 14px;
+    padding: 8px 12px 12px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .map-note i {
+    display: inline-block;
+    width: 18px;
+    height: 0;
+    border-top: 2px solid var(--red);
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .map-note i.back { border-top-style: dashed; border-top-color: var(--pine); }
+
+  .day { padding-top: 26px; }
+  .day-top { margin-bottom: 18px; }
+  .kicker {
+    margin: 0 0 4px;
+    color: var(--red);
+    font-size: 13px;
+    letter-spacing: .14em;
+  }
+  .kicker::before,
+  #route > h2::before,
+  .tips > h2::before,
+  .budget > h2::before {
+    content: "❆";
+    margin-right: .4em;
+    font-weight: 400;
+    color: #7f9aab;
+  }
+  .budget > h2::before { color: #d5e6ef; }
+  .day h2 { margin-bottom: 4px; }
+  .theme { margin: 0; font-family: var(--serif); font-size: 1.15rem; }
+  .stay { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+
+  .node {
+    position: relative;
+    margin: 0;
+    padding: 0 0 26px 18px;
+    border-left: 1px solid rgba(156, 58, 44, .35);
+  }
+  .node:last-child { border-left-color: transparent; padding-bottom: 8px; }
+  .node::before {
+    content: "";
+    position: absolute;
+    left: -4.5px;
+    top: 7px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--paper);
+    box-shadow: 0 0 0 1.5px var(--red);
+  }
+  .when {
+    margin: 0;
+    color: var(--red);
+    font-size: 12px;
+    letter-spacing: .08em;
+  }
+  .node h3 {
+    margin: 2px 0 0;
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 600;
+  }
+  .facts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .facts li {
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .38);
+  }
+  .facts em {
+    display: block;
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: .08em;
+    color: var(--muted);
+  }
+  .facts span { display: block; margin-top: 2px; font-size: 13.5px; line-height: 1.45; }
+  .intro { margin: 12px 0 0; font-size: 16px; line-height: 1.8; }
+  .hi { margin: 10px 0 0; color: var(--pine); font-size: 14px; line-height: 1.65; }
+  .hi i {
+    font-style: normal;
+    color: var(--red);
+    margin-right: 6px;
+    font-size: 12px;
+    letter-spacing: .14em;
+  }
+
+  .budget {
+    margin-top: 18px;
+    background: var(--night);
+    color: #efeae2;
+    padding: 32px 20px 28px;
+  }
+  .budget h2 { color: #fff; }
+  .budget .lead { color: #c9d2d6; }
+  .sheet { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .sheet th {
+    padding: 0 0 8px;
+    text-align: right;
+    font-size: 12px;
+    font-weight: 500;
+    color: #b7c3c8;
+  }
+  .sheet th:first-child, .sheet td:first-child { text-align: left; }
+  .sheet td {
+    padding: 11px 0;
+    border-top: 1px solid rgba(255, 255, 255, .12);
+    text-align: right;
+  }
+  .sheet tr.sum td { border-top-color: rgba(255, 255, 255, .45); font-size: 1.05rem; color: #fff; }
+  .sheet tr.sum td:not(:first-child) { color: #f3d2cb; }
+  .subhead {
+    margin: 22px 0 8px;
+    font-size: 13px;
+    letter-spacing: .12em;
+    color: #d7c3a2;
+  }
+  .tix { display: grid; grid-template-columns: 1fr auto; gap: 7px 16px; font-size: 14px; }
+  .tix span:nth-child(even) { font-variant-numeric: tabular-nums; }
+  .note { margin: 14px 0 0; color: #c5ced2; font-size: 13px; line-height: 1.65; }
+
+  .tips { padding-bottom: 12px; }
+  .tip {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: 4px 10px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+  .tip b {
+    font-family: var(--serif);
+    color: var(--red);
+    font-size: 1.25rem;
+    line-height: 1.35;
+  }
+  .tip h3 { margin: 0 0 6px; font-size: 1.05rem; font-weight: 650; }
+  .tip p { margin: 0; color: var(--soft); font-size: 15px; line-height: 1.75; }
+  footer {
+    padding: 4px 20px 40px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.65;
+  }
+
+  @media (max-width: 560px) {
+    body { background: var(--paper); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .snow { display: none; }
+  }
+  @media print {
+    body { background: #fff; }
+    .nav, .snow { display: none; }
+    .book { width: auto; background-image: none; }
+    .budget, .photo { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="book">
+  <header class="cover">
+    <img class="photo" src="images/yingxian-pagoda.jpg" alt="应县木塔实拍：辽代佛宫寺释迦塔，五层木檐仰拍，晴天">
+    <div class="cover-shade" aria-hidden="true"></div>
+    <div class="snow" aria-hidden="true">
+      <i style="left:4%;width:22px;height:22px;animation-duration:14s"></i>
+      <i style="left:12%;width:12px;height:12px;animation-duration:9s;animation-delay:-3s;opacity:.7"></i>
+      <i style="left:20%;width:16px;height:16px;animation-duration:12s;animation-delay:-6s"></i>
+      <i style="left:31%;width:26px;height:26px;animation-duration:16s;animation-delay:-2s;opacity:.55"></i>
+      <i style="left:42%;width:11px;height:11px;animation-duration:8.5s;animation-delay:-4s"></i>
+      <i style="left:53%;width:18px;height:18px;animation-duration:13s;animation-delay:-8s"></i>
+      <i style="left:63%;width:13px;height:13px;animation-duration:10s;animation-delay:-1s;opacity:.75"></i>
+      <i style="left:72%;width:24px;height:24px;animation-duration:15s;animation-delay:-5s;opacity:.6"></i>
+      <i style="left:82%;width:15px;height:15px;animation-duration:11s;animation-delay:-7s"></i>
+      <i style="left:91%;width:20px;height:20px;animation-duration:13.5s;animation-delay:-3.5s"></i>
+      <i style="left:8%;width:10px;height:10px;animation-duration:7.5s;animation-delay:-5.5s;opacity:.65"></i>
+      <i style="left:48%;width:14px;height:14px;animation-duration:12.5s;animation-delay:-9s"></i>
+      <i style="left:76%;width:12px;height:12px;animation-duration:9.5s;animation-delay:-2.4s"></i>
+      <i style="left:27%;width:17px;height:17px;animation-duration:14.5s;animation-delay:-11s;opacity:.7"></i>
+    </div>
+    <div class="cover-copy">
+      <p class="eyebrow">Shanxi · Winter Notes</p>
+      <h1><span>山西五日</span><span>冬季手册</span></h1>
+      <p class="lede">封面是应县木塔的实拍。五天从太原走到大同，晚上再坐火车回来。冬天昼短风大，露天的地方都放在午前。</p>
+      <ul class="specs">
+        <li><strong>五日</strong><span>太原进出</span></li>
+        <li><strong>四晚</strong><span>房间要有暖气</span></li>
+        <li><strong>两人</strong><span>分摊车费最合适</span></li>
+      </ul>
+      <p class="credit">照片：Gisling，2007 年 10 月，佛宫寺释迦塔。画面按封面做了裁切。<a href="https://commons.wikimedia.org/wiki/File:The_Fugong_Temple_Wooden_Pagoda.jpg">来源</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>。飘落的雪花是这本手册的主题，不是拍摄当天的天气。</p>
+    </div>
+  </header>
+
+  <nav class="nav" aria-label="章节">
+    <a href="#route">路线</a>
+    <a href="#d1">一日</a>
+    <a href="#d2">二日</a>
+    <a href="#d3">三日</a>
+    <a href="#d4">四日</a>
+    <a href="#d5">五日</a>
+    <a href="#budget">预算</a>
+    <a href="#tips">贴士</a>
+  </nav>
+
+  <main>
+    <section id="route">
+      <h2>路线</h2>
+      <p class="lead">北在上方。平遥、祁县、大同之间坐高铁，应县和悬空寺用一天包车，不必全程自驾。钟点是冬季的样本，车次以 12306 当天为准。</p>
+      <ol class="glance">
+        <li><b>一日</b><span>太原 · 晋祠、博物院</span><em>住太原</em></li>
+        <li><b>二日</b><span>平遥 · 城墙、票号、县衙</span><em>住平遥</em></li>
+        <li><b>三日</b><span>双林寺、乔家，傍晚回太原</span><em>住太原</em></li>
+        <li><b>四日</b><span>大同 · 云冈、华严寺</span><em>住大同</em></li>
+        <li><b>五日</b><span>应县木塔、悬空寺</span><em>当晚可离开</em></li>
+      </ol>
+      <div class="map">
+        <svg viewBox="0 0 360 500" role="img" aria-labelledby="mapTitle mapDesc">
+          <title id="mapTitle">五日路线示意</title>
+          <desc id="mapDesc">顺序为太原、平遥、乔家大院、返回太原、大同、应县木塔、悬空寺，再乘高铁回太原。北在上方。</desc>
+          <text x="328" y="28" fill="#7a7166" font-size="13" text-anchor="middle">北</text>
+          <path d="M328 34 V52" stroke="#7a7166" stroke-width="1" fill="none"/>
+          <path d="M323 44 L328 34 L333 44" fill="none" stroke="#7a7166" stroke-width="1"/>
+          <path d="M118 250 L118 420 Q168 386 246 330 Q200 286 118 250 L118 72 Q176 78 250 128 L262 214 Q318 150 132 78" fill="none" stroke="#9c3a2c" stroke-width="1.7" stroke-linejoin="round"/>
+          <path d="M104 78 C46 150 52 200 104 250" fill="none" stroke="#23423c" stroke-width="1.4" stroke-dasharray="4 4"/>
+          <g font-size="13" fill="#1c1916">
+            <text x="92" y="64" text-anchor="end">大同</text>
+            <text x="268" y="124">应县木塔</text>
+            <text x="278" y="218">悬空寺</text>
+            <text x="92" y="246" text-anchor="end">太原</text>
+            <text x="262" y="334">乔家大院</text>
+            <text x="92" y="424" text-anchor="end">平遥</text>
+          </g>
+          <g font-size="11" fill="#5e574e">
+            <text x="92" y="80" text-anchor="end">第4日 · 第5日返</text>
+            <text x="268" y="140">第5日上午</text>
+            <text x="278" y="234">第5日中午</text>
+            <text x="92" y="262" text-anchor="end">第1日 · 第3夜</text>
+            <text x="262" y="350">第3日</text>
+            <text x="92" y="440" text-anchor="end">第2日</text>
+          </g>
+          <g fill="#f7f4ee" stroke="#9c3a2c" stroke-width="1.5">
+            <circle cx="118" cy="72" r="11"/>
+            <circle cx="250" cy="128" r="11"/>
+            <circle cx="262" cy="214" r="11"/>
+            <circle cx="118" cy="250" r="11"/>
+            <circle cx="246" cy="330" r="11"/>
+            <circle cx="118" cy="420" r="11"/>
+          </g>
+          <g fill="#9c3a2c" font-size="12" text-anchor="middle">
+            <text x="118" y="76">4</text>
+            <text x="250" y="132">5</text>
+            <text x="262" y="218">5</text>
+            <text x="118" y="254">1</text>
+            <text x="246" y="334">3</text>
+            <text x="118" y="424">2</text>
+          </g>
+        </svg>
+        <p class="map-note"><span><i></i>游览顺序</span><span><i class="back"></i>第五日高铁返回</span></p>
+      </div>
+      <ul class="legs">
+        <li><b>太原 → 平遥</b><span>高铁约 35 分钟</span></li>
+        <li><b>平遥 → 双林寺 → 乔家</b><span>车程合计约 1 小时</span></li>
+        <li><b>乔家 → 太原</b><span>出租 20 分钟 + 高铁 20 分钟</span></li>
+        <li><b>太原 → 大同</b><span>高铁约 1 小时 50 分</span></li>
+        <li><b>大同 → 应县 → 悬空寺 → 大同南</b><span>包车一天</span></li>
+        <li><b>大同 → 太原</b><span>高铁约 2 小时</span></li>
+      </ul>
+    </section>
+
+    <section class="day" id="d1">
+      <div class="day-top">
+        <p class="kicker">第一日</p>
+        <h2>太原</h2>
+        <p class="theme">雪落晋祠</p>
+        <p class="stay">住太原。上午在祠里，下午进博物馆，晚饭就在食品街结束。</p>
+      </div>
+      <ol class="nodes">
+        <li class="node">
+          <p class="when">上午 · 9:20–11:50</p>
+          <h3>晋祠</h3>
+          <ul class="facts">
+            <li><em>交通</em><span>市区网约车约 45 分钟，单程大约 60–80 元</span></li>
+            <li><em>停留</em><span>2.5 小时</span></li>
+            <li><em>票价</em><span>80 元</span></li>
+            <li><em>开放</em><span>上午入园最稳，预留整个午前</span></li>
+          </ul>
+          <p class="intro">晋祠在太原西南的悬瓮山下，雪后几乎没有人。圣母殿飞檐压着白边，鱼沼飞梁会结薄冰，难老泉却仍然流动。先看水镜台和金人台，再进殿看宋代侍女像，最后在周柏前站一会儿。石阶湿滑，把停留放在殿内，不要在院里耗太久。</p>
+          <p class="hi"><i>亮点</i>难老泉冬天也不封冻 · 圣母殿宋代侍女像 · 周柏</p>
+        </li>
+        <li class="node">
+          <p class="when">下午 · 14:00–16:00</p>
+          <h3>山西博物院</h3>
+          <ul class="facts">
+            <li><em>交通</em><span>回市区约 40 分钟，馆在滨河西路</span></li>
+            <li><em>停留</em><span>2 小时</span></li>
+            <li><em>票价</em><span>免费，官方公众号预约</span></li>
+            <li><em>开放</em><span>16:00 左右停止入馆，周一多半闭馆</span></li>
+          </ul>
+          <p class="intro">博物院在汾河西岸，从晋祠回城正好进屋避风。晋侯鸟尊、司马金龙墓的漆画屏和北朝佛像，把后面几天的木构、彩塑和石窟先串成一条线。说明写得清楚。免费，须预约，多数周一闭馆；赶上周一，就改去城里的纯阳宫。</p>
+          <p class="hi"><i>亮点</i>晋侯鸟尊 · 司马金龙墓漆画屏 · 北朝佛像</p>
+        </li>
+        <li class="node">
+          <p class="when">傍晚 · 17:30–19:00</p>
+          <h3>钟楼街与食品街</h3>
+          <ul class="facts">
+            <li><em>交通</em><span>从博物院打车约 20 分钟</span></li>
+            <li><em>停留</em><span>1.5 小时</span></li>
+            <li><em>票价</em><span>免费</span></li>
+            <li><em>晚饭</em><span>刀削面、剔尖或羊汤</span></li>
+          </ul>
+          <p class="intro">钟楼街一带是太原晚上最省事的去处。冬天进店吃一碗刀削面或剔尖，再喝碗羊汤，热气比夜景重要。街不长，一个半小时足够。名吃「头脑」是早点，不是晚饭，今晚不要特意去找。吃完回酒店，养好明天的早班车。</p>
+          <p class="hi"><i>亮点</i>刀削面与剔尖 · 羊汤 · 吃完就收工</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="day" id="d2">
+      <div class="day-top">
+        <p class="kicker">第二日</p>
+        <h2>平遥</h2>
+        <p class="theme">城墙与票号</p>
+        <p class="stay">太原南到平遥古城站，高铁约 35 分钟，二等座约 30 元。进城不要钱，通票另计。住在城内。</p>
+      </div>
+      <ol class="nodes">
+        <li class="node">
+          <p class="when">上午 · 9:30–11:00</p>
+          <h3>平遥城墙</h3>
+          <ul class="facts">
+            <li><em>交通</em><span>古城站出租约 10 分钟，停在下西门或南门</span></li>
+            <li><em>停留</em><span>1.5 小时</span></li>
+            <li><em>票价</em><span>含于通票 125 元</span></li>
+            <li><em>开放</em><span>冬季约 8:00–17:30，闭馆前 15 分钟停检</span></li>
+          </ul>
+          <p class="intro">冬天先上城墙。马面和瓮城连成一条灰线，城外的田盖着雪，比城里的铺面更像平遥。风比地面大，从下西门走到北门就可以下来，不必绕完约六公里。古城站出来，出租大约十分钟，让司机停在好上的那一座城门。</p>
+          <p class="hi"><i>亮点</i>马面和瓮城 · 雪里的城外田 · 不必走完全程</p>
+        </li>
+        <li class="node">
+          <p class="when">午后 · 13:00–14:00</p>
+          <h3>日升昌票号</h3>
+          <ul class="facts">
+            <li><em>交通</em><span>下城后步行约 10 分钟，在西大街</span></li>
+            <li><em>停留</em><span>1 小时</span></li>
+            <li><em>票价</em><span>含于通票</span></li>
+            <li><em>午饭</em><span>城墙下来先吃饭，再进票号</span></li>
+          </ul>
+          <p class="intro">日升昌在西大街，下了城墙走过去就到。院子不大，柜房、信房和汇票还在，看的是一套办法：怎样把银子变成一张能在异地取钱的纸。冬天屋里有暖气，适合慢慢看章程。看懂票号，明天的乔家才不只是砖雕和深院。</p>
+          <p class="hi"><i>亮点</i>早期票号 · 汇票与防伪 · 暖房里慢慢看</p>
+        </li>
+        <li class="node">
+          <p class="when">午后 · 14:15–15:15</p>
+          <h3>平遥县衙</h3>
+          <ul class="facts">
+            <li><em>交通</em><span>步行约 8 分钟</span></li>
+            <li><em>停留</em><span>1 小时</span></li>
+            <li><em>票价</em><span>含于通票</span></li>
+            <li><em>取舍</em><span>时间紧就留这里和日升昌</span></li>
+          </ul>
+          <p class="intro">县衙离日升昌很近，从仪门沿中轴走到内宅，赋役房、刑具陈列和后宅都避风。冬天比继续在城墙上耗着舒服，通票里的室内景点适合放在午后。时间若只够细看两处，就留日升昌和这里。协同庆路过看一眼即可，中轴不长，一个小时够用。</p>
+          <p class="hi"><i>亮点</i>赋役房 · 内宅 · 冬天最舒服的一处</p>
+        </li>
+        <li class="node">
+          <p class="when">傍晚 · 16:00–18:00</p>
+          <h3>市楼与南大街</h3>
+          <ul class="facts">
+            <li><em>交通</em><span>沿南大街步行</span></li>
+            <li><em>停留</em><span>1–2 小时</span></li>
+            <li><em>票价</em><span>街道免费</span></li>
+            <li><em>晚饭</em><span>平遥牛肉、碗托</span></li>
+          </ul>
+          <p class="intro">市楼在南大街中段，是古城的方向标，找路先找它。通票景点大约十七点半停止进入，之后用来逛街正好。灯笼亮起后，雪天的街道比白天安静，牛肉和碗托都在铺里。客栈住在城内，找店也先找市楼。明天行李直接放进后备箱。</p>
+          <p class="hi"><i>亮点</i>市楼灯笼 · 平遥牛肉 · 碗托</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="day" id="d3">
+      <div class="day-top">
+        <p class="kicker">第三日</p>
+        <h2>祁县</h2>
+        <p class="theme">彩塑与晋商宅院</p>
+        <p class="stay">早上退房，行李放后备箱。傍晚回到太原过夜，好赶明天去大同的早班。</p>
+      </div>
+      <ol class="nodes">
+        <li class="node">
+          <p class="when">上午 · 8:20–9:50</p>
+          <h3>双林寺</h3>
+          <ul class="facts">
+            <li><em>交通</em><span>古城出租约 15 分钟，在城西南</span></li>
+            <li><em>停留</em><span>1.5 小时</span></li>
+            <li><em>票价</em><span>35 元，不含在通票里</span></li>
+            <li><em>开放</em><span>与古城冬季同步，约 17:30 前闭馆</span></li>
+          </ul>
+          <p class="intro">双林寺在古城西南，出租大约十五分钟。殿里是明代彩塑，菩萨殿的悬塑几乎伸到眼前，衣褶、手指和眼神都还清楚。冬天室内光线稳，比盛夏更好看，请关掉闪光灯。它不在古城通票里，门票要另买，进门时单独核销。</p>
+          <p class="hi"><i>亮点</i>明代悬塑 · 菩萨殿 · 单独买票</p>
+        </li>
+        <li class="node">
+          <p class="when">午前至中午 · 10:45–12:30</p>
+          <h3>乔家大院</h3>
+          <ul class="facts">
+            <li><em>交通</em><span>双林寺打车约 45 分钟到乔家堡</span></li>
+            <li><em>停留</em><span>2 小时</span></li>
+            <li><em>票价</em><span>115 元</span></li>
+            <li><em>开放</em><span>约 8:30 开园，闭园以当日为准</span></li>
+          </ul>
+          <p class="intro">从双林寺到乔家堡大约四十五分钟。这里是晋商宅院，不是园林：高墙、窄巷、砖雕，院子一层层往里收。冬天游客少，砖地容易结薄冰，看中堂和整体格局即可，不必逐间拍照。在县城吃碗面，再去祁县东站，别把饭点耗在景区门口。</p>
+          <p class="hi"><i>亮点</i>高墙窄巷 · 砖雕 · 内宅层层套叠</p>
+        </li>
+        <li class="node">
+          <p class="when">下午 · 13:20 后出发</p>
+          <h3>回到太原过夜</h3>
+          <ul class="facts">
+            <li><em>交通</em><span>乔家到祁县东约 20 分钟，再转高铁</span></li>
+            <li><em>路程</em><span>高铁约 20 分钟到太原南</span></li>
+            <li><em>票价</em><span>二等座约 25 元</span></li>
+            <li><em>今晚</em><span>不加景点，刀削面当晚饭</span></li>
+          </ul>
+          <p class="intro">祁县东站离乔家大约二十分钟车程，高铁到太原南大约二十分钟。今晚换回太原住，是为了明天早班去大同，不必再从平遥倒一次车。晚上不加景点。行李一直放在车上，进站前给安检留出时间。到了酒店就休息，不再出门。</p>
+          <p class="hi"><i>亮点</i>祁县东进站快 · 换到太原过夜 · 行李不离车</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="day" id="d4">
+      <div class="day-top">
+        <p class="kicker">第四日</p>
+        <h2>大同</h2>
+        <p class="theme">石窟与辽代殿宇</p>
+        <p class="stay">太原南到大同南，高铁约 1 小时 50 分，二等座约 110 元。尽量坐上午八点前后的车。住大同。</p>
+      </div>
+      <ol class="nodes">
+        <li class="node">
+          <p class="when">上午 · 10:30–13:00</p>
+          <h3>云冈石窟</h3>
+          <ul class="facts">
+            <li><em>交通</em><span>南站或市区出租约 40 分钟，在城西</span></li>
+            <li><em>停留</em><span>2.5 小时</span></li>
+            <li><em>票价</em><span>冬季淡季 100 元，用「云冈文旅」预约</span></li>
+            <li><em>重点</em><span>第 5 窟、第 6 窟，看完大佛就撤</span></li>
+          </ul>
+          <p class="intro">云冈在大同城西，从南站或市区过去大约四十分钟。冬天风硬，把时间留给第五窟和第六窟：外面有木构楼阁，既能避风，佛像也最完整。露天大佛看过就走。淡季票价低于夏天，入窟不要开闪光灯，外套可以穿进去。</p>
+          <p class="hi"><i>亮点</i>第 5、第 6 窟的楼阁 · 可以避风 · 淡季票</p>
+        </li>
+        <li class="node">
+          <p class="when">下午 · 14:20–15:40</p>
+          <h3>华严寺</h3>
+          <ul class="facts">
+            <li><em>交通</em><span>回到古城约 40 分钟，先在城里吃午饭</span></li>
+            <li><em>停留</em><span>1.5 小时</span></li>
+            <li><em>票价</em><span>约 50 元</span></li>
+            <li><em>重点</em><span>薄伽教藏殿</span></li>
+          </ul>
+          <p class="intro">华严寺在大同古城内，从云冈回来大约四十分钟。薄伽教藏殿是辽代木构，彩塑沿墙排开，其中一尊合掌露齿的菩萨常被叫作东方维纳斯。殿里避风，彩塑也看得清。户外的石窟放在午前，这座殿留给下午就够。</p>
+          <p class="hi"><i>亮点</i>辽代木构 · 合掌露齿菩萨 · 下午避风</p>
+        </li>
+        <li class="node">
+          <p class="when">傍晚 · 15:50–16:30</p>
+          <h3>大同城墙</h3>
+          <ul class="facts">
+            <li><em>交通</em><span>从华严寺步行上去</span></li>
+            <li><em>停留</em><span>40 分钟</span></li>
+            <li><em>票价</em><span>免费</span></li>
+            <li><em>晚饭</em><span>酒店附近吃完，不要穿过半城</span></li>
+          </ul>
+          <p class="intro">大同城墙已经整修，傍晚可以免费上去。雪天不必走完整圈，挑靠近城楼的一段，看屋顶和城外的平原，大约四十分钟。五点以后天色掉得很快，看完即走。明天七点半要出发，晚饭就在酒店附近吃完，别再穿过半个城。</p>
+          <p class="hi"><i>亮点</i>免费城墙 · 雪线与城楼 · 四十分钟即走</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="day" id="d5">
+      <div class="day-top">
+        <p class="kicker">第五日</p>
+        <h2>应县 · 浑源</h2>
+        <p class="theme">木塔与悬空寺</p>
+        <p class="stay">7:30 从大同出发。包车按「大同 — 应县 — 悬空寺 — 大同南站」一次谈清，含等候。一车大约 600–800 元，下面预算按 700 元。</p>
+      </div>
+      <ol class="nodes">
+        <li class="node">
+          <p class="when">上午 · 9:00–10:00</p>
+          <h3>应县木塔</h3>
+          <ul class="facts">
+            <li><em>交通</em><span>大同包车约 1 小时 20 分</span></li>
+            <li><em>停留</em><span>1 小时，只够看底层</span></li>
+            <li><em>票价</em><span>50 元</span></li>
+            <li><em>开放</em><span>冬令时约 8:00–17:00，不能登塔</span></li>
+          </ul>
+          <p class="intro">应县木塔是辽代纯木塔，外观五层，内部还有暗层，全靠斗拱层层咬合。塔身已经倾斜，如今只开放底层，不能登高。一层能看见高大的释迦像和上方藻井，现场多半不让拍照。塔就在县城里，很好找。先在县城吃碗面再走，景区不管午饭。</p>
+          <p class="hi"><i>亮点</i>只开一层 · 斗拱 · 释迦像与藻井</p>
+        </li>
+        <li class="node">
+          <p class="when">中午 · 12:00–13:40</p>
+          <h3>悬空寺</h3>
+          <ul class="facts">
+            <li><em>交通</em><span>应县再包车约 1 小时 10–20 分，含景区摆渡</span></li>
+            <li><em>停留</em><span>2 小时</span></li>
+            <li><em>票价</em><span>115 元：入园 15 + 登临 100</span></li>
+            <li><em>开放</em><span>11 月至 2 月约 8:30–16:30，登临票限量</span></li>
+          </ul>
+          <p class="intro">悬空寺嵌在浑源翠屏峰的峭壁上，从应县再走一个多小时。冬天谷风大，栈道窄。登临票每天限量，要和入园票分开买，景区摆渡也会占去时间。台阶一旦结冰就可能临时关闭，那时在谷底看整座寺，不必硬上，一样能看全。</p>
+          <p class="hi"><i>亮点</i>峭壁上的寺院 · 登临票要提前买 · 结冰就在谷底看</p>
+        </li>
+        <li class="node">
+          <p class="when">下午 · 15:00 后</p>
+          <h3>大同南站返程</h3>
+          <ul class="facts">
+            <li><em>交通</em><span>悬空寺到大同南约 1 小时 30 分</span></li>
+            <li><em>火车</em><span>回太原约 2 小时，二等座约 110 元</span></li>
+            <li><em>行李</em><span>全天放在车上，不要再回酒店</span></li>
+            <li><em>备选</em><span>若不住太原，今晚就留在大同</span></li>
+          </ul>
+          <p class="intro">看完悬空寺直接去大同南站，不要折回市区取行李，箱子一直放在车上。返回太原的高铁大约两小时，二等座提前买。若今晚不住太原，就把终点留在大同。包车按整天谈妥，写明等候，并送到南站，返程时间在车上说死。</p>
+          <p class="hi"><i>亮点</i>行李不离车 · 高铁约两小时 · 包车送到站</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="budget" id="budget">
+      <h2>预算</h2>
+      <p class="lead">按 2026 年 11 月的公开票价估算，单位是元。两人同行、住一间双人房、同乘一辆车时，看「两人人均」。一个人独自走，房费和车费都由自己承担。</p>
+      <table class="sheet">
+        <thead>
+          <tr><th>项目</th><th>两人人均</th><th>一个人</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>高铁二等座</td><td>275</td><td>275</td></tr>
+          <tr><td>门票</td><td>670</td><td>670</td></tr>
+          <tr><td>餐饮</td><td>500</td><td>500</td></tr>
+          <tr><td>住宿四晚</td><td>550</td><td>1,100</td></tr>
+          <tr><td>市内与包车</td><td>595</td><td>1,190</td></tr>
+          <tr class="sum"><td>合计</td><td>2,590</td><td>3,735</td></tr>
+        </tbody>
+      </table>
+      <p class="subhead">门票 · 每人</p>
+      <ul class="tix">
+        <span>晋祠</span><span>80</span>
+        <span>山西博物院</span><span>0</span>
+        <span>平遥通票</span><span>125</span>
+        <span>双林寺</span><span>35</span>
+        <span>乔家大院</span><span>115</span>
+        <span>云冈石窟，淡季</span><span>100</span>
+        <span>华严寺</span><span>50</span>
+        <span>应县木塔</span><span>50</span>
+        <span>悬空寺，含登临</span><span>115</span>
+        <span>合计</span><span>670</span>
+      </ul>
+      <p class="subhead">用车 · 按一辆车</p>
+      <ul class="tix">
+        <span>晋祠往返和市区</span><span>150</span>
+        <span>平遥站到古城</span><span>30</span>
+        <span>双林寺、乔家、祁县东</span><span>220</span>
+        <span>云冈往返</span><span>90</span>
+        <span>第五天专车</span><span>700</span>
+        <span>合计，两人即对半</span><span>1,190</span>
+      </ul>
+      <p class="note">高铁四段大约是 30 + 25 + 110 + 110。住宿按太原两晚、平遥一晚、大同一晚，一间分别约 280、260、280 元，四晚一间共 1,100 元。餐饮按每天 100 元，若每天有一顿正餐，人均再加约 150 元。第五天专车若谈到 600 元，两人人均少 50 元。春节前后房价和车价另按上浮计算。六十岁以上、学生、儿童的门票优惠没有折进这张表。</p>
+    </section>
+
+    <section class="tips" id="tips">
+      <h2>五条贴士</h2>
+      <p class="lead">都是冬天这条线真正会碰到的事。</p>
+      <article class="tip">
+        <b>01</b>
+        <div>
+          <h3>把露天留给午前</h3>
+          <p>十一月到二月，五点一过户外就沉下去。晋祠、平遥城墙、乔家的砖石会结薄冰，穿防滑靴，别穿底很平的棉鞋。城墙、晋祠、云冈和木塔都已经放在午前，下午进殿、进馆。</p>
+        </div>
+      </article>
+      <article class="tip">
+        <b>02</b>
+        <div>
+          <h3>木塔不能登，悬空寺要先问</h3>
+          <p>应县木塔只开放底层，不能登塔，一层佛像前通常不能拍照。悬空寺冬令时大约 8:30 到 16:30，登临票每天限量，台阶结冰会停开。七十岁以上、恐高，或有高血压、心脏病的人不要登临。前一天用官方渠道确认，包车路线写明送到大同南站。</p>
+        </div>
+      </article>
+      <article class="tip">
+        <b>03</b>
+        <div>
+          <h3>出发前一晚订这四样</h3>
+          <p>山西博物院免费，只用官方公众号。参观日前三天的晚上八点放票，当天早晨八点还有一轮，多数周一闭馆，除夕前后再看当年公告。云冈用「云冈文旅」，悬空寺登临优先用「北岳云游」，不要找人代买。平遥通票和双林寺是两张票。太原至大同、大同返回的高铁，周末和春节档提前在 12306 买。</p>
+        </div>
+      </article>
+      <article class="tip">
+        <b>04</b>
+        <div>
+          <h3>防风，比防雪更要紧</h3>
+          <p>白天气温多在零下 5 度到 5 度，一月可能到零下十五度。城墙和河谷的风比雪难对付。外面一件防风外套，里面一件能脱掉的薄羽绒。票号、县衙和殿里有暖气或至少避风。订平遥客栈时问清是不是暖气，不要只看照片。</p>
+        </div>
+      </article>
+      <article class="tip">
+        <b>05</b>
+        <div>
+          <h3>冬天吃面，票按人核对</h3>
+          <p>太原晚饭吃刀削面、剔尖、羊汤。「头脑」是早点，不是晚饭。平遥吃牛肉和碗托，大同仍是面。六十岁以上看国有景区，首道票经常免；学生票多为半价，证件带着。若还要去王家大院等地，再查当年山西文旅年卡的名录。只走这一条线的话，悬空寺登临、应县木塔和晋祠多半不在卡里。</p>
+        </div>
+      </article>
+    </section>
+  </main>
+  <footer>
+    票价、车程和开放时间按 2026 年 11 月仍能核对到的公开信息整理，出行前以 12306 和景区当日公告为准。平遥通票一般含城墙、日升昌、县衙，不含双林寺，进门前再看一眼当日项目。云冈 4 月至 10 月是旺季票，大约 120 元。
+  </footer>
+</div>
+<script>
+(function () {
+  var links = [].slice.call(document.querySelectorAll(".nav a"));
+  var map = {};
+  links.forEach(function (a) { map[a.getAttribute("href").slice(1)] = a; });
+  var nav = document.querySelector(".nav");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      links.forEach(function (a) { a.classList.remove("on"); });
+      var hit = map[entry.target.id];
+      if (!hit) return;
+      hit.classList.add("on");
+      var left = hit.offsetLeft - 16;
+      nav.scrollTo({ left: Math.max(0, left), behavior: reduce ? "auto" : "smooth" });
+    });
+  }, { rootMargin: "-20% 0px -62% 0px", threshold: 0.01 });
+  Object.keys(map).forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) obs.observe(el);
+  });
+  window.addEventListener("scroll", function () {
+    if (window.scrollY < 40) links.forEach(function (a) { a.classList.remove("on"); });
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
