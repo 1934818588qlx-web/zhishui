@@ -300,6 +300,34 @@
   }
   .facts span { display: block; margin-top: 2px; font-size: 13.5px; line-height: 1.45; }
   .intro { margin: 12px 0 0; font-size: 16px; line-height: 1.8; }
+  .shot { margin: 14px 0 0; }
+  .shot img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    object-position: center 46%;
+    border-radius: 14px;
+    background: #e4ddd0;
+  }
+  .shot figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 2px 12px;
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.45;
+  }
+  .shot b {
+    color: var(--soft);
+    font-weight: 600;
+    letter-spacing: .08em;
+  }
+  .shot span { margin-left: auto; text-align: right; }
+  .shot a { color: inherit; }
   .hi { margin: 10px 0 0; color: var(--pine); font-size: 14px; line-height: 1.65; }
   .hi i {
     font-style: normal;
@@ -581,6 +609,10 @@
             <li><em>票价</em><span>80 元</span></li>
             <li><em>开放</em><span>上午入园最稳，预留整个午前</span></li>
           </ul>
+          <figure class="shot">
+            <img src="images/jinci.jpg" alt="晋祠金人台实拍，铁人与铁马立在树下" style="object-position:center 58%" loading="lazy" decoding="async">
+            <figcaption><b>金人台</b><span><a href="https://commons.wikimedia.org/wiki/File:Jinci_Temple_(54573021971).jpg">xiquinhosilva</a> · <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a></span></figcaption>
+          </figure>
           <p class="intro">晋祠在太原西南的悬瓮山下，雪后几乎没有人。圣母殿飞檐压着白边，鱼沼飞梁会结薄冰，难老泉却仍然流动。先看水镜台和金人台，再进殿看宋代侍女像，最后在周柏前站一会儿。石阶湿滑，把停留放在殿内，不要在院里耗太久。</p>
           <p class="hi"><i>亮点</i>难老泉冬天也不封冻 · 圣母殿宋代侍女像 · 周柏</p>
         </li>
@@ -593,6 +625,10 @@
             <li><em>票价</em><span>免费，官方公众号预约</span></li>
             <li><em>开放</em><span>16:00 左右停止入馆，周一多半闭馆</span></li>
           </ul>
+          <figure class="shot">
+            <img src="images/museum.jpg" alt="山西博物院正门实拍，斗状石建筑和门前石柱" loading="lazy" decoding="async">
+            <figcaption><b>博物院正门</b><span><a href="https://commons.wikimedia.org/wiki/File:Shanxi_Museum_20110719.jpg">Roland Longbow</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></span></figcaption>
+          </figure>
           <p class="intro">博物院在汾河西岸，从晋祠回城正好进屋避风。晋侯鸟尊、司马金龙墓的漆画屏和北朝佛像，把后面几天的木构、彩塑和石窟先串成一条线。说明写得清楚。免费，须预约，多数周一闭馆；赶上周一，就改去城里的纯阳宫。</p>
           <p class="hi"><i>亮点</i>晋侯鸟尊 · 司马金龙墓漆画屏 · 北朝佛像</p>
         </li>
@@ -605,6 +641,10 @@
             <li><em>票价</em><span>免费</span></li>
             <li><em>晚饭</em><span>刀削面、剔尖或羊汤</span></li>
           </ul>
+          <figure class="shot">
+            <img src="images/food-street.jpg" alt="太原钟楼街食品街夜景实拍，牌坊上写着食品街" style="object-position:center 42%" loading="lazy" decoding="async">
+            <figcaption><b>食品街</b><span><a href="https://commons.wikimedia.org/wiki/File:%E8%BF%8E%E6%B3%BD_%E9%92%9F%E6%A5%BC%E8%A1%97%E4%B9%8B%E9%A3%9F%E5%93%81%E8%A1%97.jpg">Liuxingy</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></span></figcaption>
+          </figure>
           <p class="intro">钟楼街一带是太原晚上最省事的去处。冬天进店吃一碗刀削面或剔尖，再喝碗羊汤，热气比夜景重要。街不长，一个半小时足够。名吃「头脑」是早点，不是晚饭，今晚不要特意去找。吃完回酒店，养好明天的早班车。</p>
           <p class="hi"><i>亮点</i>刀削面与剔尖 · 羊汤 · 吃完就收工</p>
         </li>
@@ -628,6 +668,10 @@
             <li><em>票价</em><span>含于通票 125 元</span></li>
             <li><em>开放</em><span>冬季约 8:00–17:30，闭馆前 15 分钟停检</span></li>
           </ul>
+          <figure class="shot">
+            <img src="images/pingyao-wall.jpg" alt="平遥城墙实拍，砖墙和一列马面" loading="lazy" decoding="async">
+            <figcaption><b>城墙马面</b><span><a href="https://commons.wikimedia.org/wiki/File:PingYaoCityWall.jpg">Peellden</a> · 公有领域</span></figcaption>
+          </figure>
           <p class="intro">冬天先上城墙。马面和瓮城连成一条灰线，城外的田盖着雪，比城里的铺面更像平遥。风比地面大，从下西门走到北门就可以下来，不必绕完约六公里。古城站出来，出租大约十分钟，让司机停在好上的那一座城门。</p>
           <p class="hi"><i>亮点</i>马面和瓮城 · 雪里的城外田 · 不必走完全程</p>
         </li>
@@ -640,6 +684,10 @@
             <li><em>票价</em><span>含于通票</span></li>
             <li><em>午饭</em><span>城墙下来先吃饭，再进票号</span></li>
           </ul>
+          <figure class="shot">
+            <img src="images/rishengchang.jpg" alt="日升昌票号前门实拍，黑漆铺面和金字匾额" style="object-position:center 72%" loading="lazy" decoding="async">
+            <figcaption><b>日升昌前门</b><span><a href="https://commons.wikimedia.org/wiki/File:%E5%B1%B1%E8%A5%BF%E5%B9%B3%E9%81%A5%E6%97%A5%E5%8D%87%E6%98%8C%E7%A5%A8%E5%8F%B7%E5%89%8D%E9%97%A8_-_panoramio.jpg">Tiger@西北</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></span></figcaption>
+          </figure>
           <p class="intro">日升昌在西大街，下了城墙走过去就到。院子不大，柜房、信房和汇票还在，看的是一套办法：怎样把银子变成一张能在异地取钱的纸。冬天屋里有暖气，适合慢慢看章程。看懂票号，明天的乔家才不只是砖雕和深院。</p>
           <p class="hi"><i>亮点</i>早期票号 · 汇票与防伪 · 暖房里慢慢看</p>
         </li>
@@ -652,6 +700,10 @@
             <li><em>票价</em><span>含于通票</span></li>
             <li><em>取舍</em><span>时间紧就留这里和日升昌</span></li>
           </ul>
+          <figure class="shot">
+            <img src="images/yamen.jpg" alt="平遥县衙实拍，灰瓦大堂和庭中铜鼎" style="object-position:center 62%" loading="lazy" decoding="async">
+            <figcaption><b>县衙</b><span><a href="https://commons.wikimedia.org/wiki/File:%E5%B1%B1%E8%A5%BF%E5%B9%B3%E9%81%A5%E5%8F%A4%E5%9F%8E%E5%8E%BF%E8%A1%99_-_panoramio.jpg">Tiger@西北</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></span></figcaption>
+          </figure>
           <p class="intro">县衙离日升昌很近，从仪门沿中轴走到内宅，赋役房、刑具陈列和后宅都避风。冬天比继续在城墙上耗着舒服，通票里的室内景点适合放在午后。时间若只够细看两处，就留日升昌和这里。协同庆路过看一眼即可，中轴不长，一个小时够用。</p>
           <p class="hi"><i>亮点</i>赋役房 · 内宅 · 冬天最舒服的一处</p>
         </li>
@@ -664,6 +716,10 @@
             <li><em>票价</em><span>街道免费</span></li>
             <li><em>晚饭</em><span>平遥牛肉、碗托</span></li>
           </ul>
+          <figure class="shot">
+            <img src="images/shilou.jpg" alt="从平遥市楼望南大街的实拍，灰瓦长街和尽头的城楼" style="object-position:center 42%" loading="lazy" decoding="async">
+            <figcaption><b>市楼望南街</b><span><a href="https://commons.wikimedia.org/wiki/File:Pingyao_marketstreet.jpg">severin.stalder</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></span></figcaption>
+          </figure>
           <p class="intro">市楼在南大街中段，是古城的方向标，找路先找它。通票景点大约十七点半停止进入，之后用来逛街正好。灯笼亮起后，雪天的街道比白天安静，牛肉和碗托都在铺里。客栈住在城内，找店也先找市楼。明天行李直接放进后备箱。</p>
           <p class="hi"><i>亮点</i>市楼灯笼 · 平遥牛肉 · 碗托</p>
         </li>
@@ -687,6 +743,10 @@
             <li><em>票价</em><span>35 元，不含在通票里</span></li>
             <li><em>开放</em><span>与古城冬季同步，约 17:30 前闭馆</span></li>
           </ul>
+          <figure class="shot">
+            <img src="images/shuanglin.jpg" alt="平遥双林寺大雄宝殿实拍，灰木殿身和绿琉璃瓦" loading="lazy" decoding="async">
+            <figcaption><b>大雄宝殿</b><span><a href="https://commons.wikimedia.org/wiki/File:%E5%B9%B3%E9%81%A5%E5%8F%8C%E6%9E%97%E5%AF%BA%E5%A4%A7%E9%9B%84%E5%AE%9D%E6%AE%BF.jpg">Patrick20242023</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></span></figcaption>
+          </figure>
           <p class="intro">双林寺在古城西南，出租大约十五分钟。殿里是明代彩塑，菩萨殿的悬塑几乎伸到眼前，衣褶、手指和眼神都还清楚。冬天室内光线稳，比盛夏更好看，请关掉闪光灯。它不在古城通票里，门票要另买，进门时单独核销。</p>
           <p class="hi"><i>亮点</i>明代悬塑 · 菩萨殿 · 单独买票</p>
         </li>
@@ -699,6 +759,10 @@
             <li><em>票价</em><span>115 元</span></li>
             <li><em>开放</em><span>约 8:30 开园，闭园以当日为准</span></li>
           </ul>
+          <figure class="shot">
+            <img src="images/qiao.jpg" alt="乔家大院实拍，窄巷、红灯笼和砖雕门楼" style="object-position:center 40%" loading="lazy" decoding="async">
+            <figcaption><b>乔家院落</b><span><a href="https://commons.wikimedia.org/wiki/File:%E4%B9%94%E5%AE%B6%E5%A4%A7%E9%99%A2.jpg">螺钉</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></span></figcaption>
+          </figure>
           <p class="intro">从双林寺到乔家堡大约四十五分钟。这里是晋商宅院，不是园林：高墙、窄巷、砖雕，院子一层层往里收。冬天游客少，砖地容易结薄冰，看中堂和整体格局即可，不必逐间拍照。在县城吃碗面，再去祁县东站，别把饭点耗在景区门口。</p>
           <p class="hi"><i>亮点</i>高墙窄巷 · 砖雕 · 内宅层层套叠</p>
         </li>
@@ -734,6 +798,10 @@
             <li><em>票价</em><span>冬季淡季 100 元，用「云冈文旅」预约</span></li>
             <li><em>重点</em><span>第 5 窟、第 6 窟，看完大佛就撤</span></li>
           </ul>
+          <figure class="shot">
+            <img src="images/yungang.jpg" alt="云冈石窟实拍，崖壁前的木构楼阁和石窟入口" loading="lazy" decoding="async">
+            <figcaption><b>石窟楼阁</b><span><a href="https://commons.wikimedia.org/wiki/File:Yungag_entrance_2010.JPG">Marcin Białek</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></span></figcaption>
+          </figure>
           <p class="intro">云冈在大同城西，从南站或市区过去大约四十分钟。冬天风硬，把时间留给第五窟和第六窟：外面有木构楼阁，既能避风，佛像也最完整。露天大佛看过就走。淡季票价低于夏天，入窟不要开闪光灯，外套可以穿进去。</p>
           <p class="hi"><i>亮点</i>第 5、第 6 窟的楼阁 · 可以避风 · 淡季票</p>
         </li>
@@ -746,6 +814,10 @@
             <li><em>票价</em><span>约 50 元</span></li>
             <li><em>重点</em><span>薄伽教藏殿</span></li>
           </ul>
+          <figure class="shot">
+            <img src="images/huayan.jpg" alt="华严寺壁画实拍，结跏趺坐的菩萨和两侧胁侍" loading="lazy" decoding="async">
+            <figcaption><b>殿内壁画</b><span><a href="https://commons.wikimedia.org/wiki/File:Murals_and_Buddha_statues_in_Huayan_Temple_%E5%8D%8E%E4%B8%A5%E5%AF%BA%E4%B9%8B%E5%A3%81%E7%94%BB%E5%8F%8A%E4%BD%9B%E5%83%8F,_Shanxi,_2024_(53949255422).jpg">JL Cogburn</a> · <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a></span></figcaption>
+          </figure>
           <p class="intro">华严寺在大同古城内，从云冈回来大约四十分钟。薄伽教藏殿是辽代木构，彩塑沿墙排开，其中一尊合掌露齿的菩萨常被叫作东方维纳斯。殿里避风，彩塑也看得清。户外的石窟放在午前，这座殿留给下午就够。</p>
           <p class="hi"><i>亮点</i>辽代木构 · 合掌露齿菩萨 · 下午避风</p>
         </li>
@@ -758,6 +830,10 @@
             <li><em>票价</em><span>免费</span></li>
             <li><em>晚饭</em><span>酒店附近吃完，不要穿过半城</span></li>
           </ul>
+          <figure class="shot">
+            <img src="images/datong-wall.jpg" alt="大同城墙实拍，城楼、城墙和城外水面" style="object-position:center 40%" loading="lazy" decoding="async">
+            <figcaption><b>城墙与城楼</b><span><a href="https://commons.wikimedia.org/wiki/File:Datong_Ancient_City_Wall_01.jpg">xiquinhosilva</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span></figcaption>
+          </figure>
           <p class="intro">大同城墙已经整修，傍晚可以免费上去。雪天不必走完整圈，挑靠近城楼的一段，看屋顶和城外的平原，大约四十分钟。五点以后天色掉得很快，看完即走。明天七点半要出发，晚饭就在酒店附近吃完，别再穿过半个城。</p>
           <p class="hi"><i>亮点</i>免费城墙 · 雪线与城楼 · 四十分钟即走</p>
         </li>
@@ -781,6 +857,10 @@
             <li><em>票价</em><span>50 元</span></li>
             <li><em>开放</em><span>冬令时约 8:00–17:00，不能登塔</span></li>
           </ul>
+          <figure class="shot">
+            <img src="images/yingxian-pagoda.jpg" alt="应县木塔实拍，五层木檐仰视" style="object-position:center 38%" loading="lazy" decoding="async">
+            <figcaption><b>佛宫寺释迦塔</b><span><a href="https://commons.wikimedia.org/wiki/File:The_Fugong_Temple_Wooden_Pagoda.jpg">Gisling</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></span></figcaption>
+          </figure>
           <p class="intro">应县木塔是辽代纯木塔，外观五层，内部还有暗层，全靠斗拱层层咬合。塔身已经倾斜，如今只开放底层，不能登高。一层能看见高大的释迦像和上方藻井，现场多半不让拍照。塔就在县城里，很好找。先在县城吃碗面再走，景区不管午饭。</p>
           <p class="hi"><i>亮点</i>只开一层 · 斗拱 · 释迦像与藻井</p>
         </li>
@@ -793,6 +873,10 @@
             <li><em>票价</em><span>115 元：入园 15 + 登临 100</span></li>
             <li><em>开放</em><span>11 月至 2 月约 8:30–16:30，登临票限量</span></li>
           </ul>
+          <figure class="shot">
+            <img src="images/xuankong.jpg" alt="悬空寺实拍，楼阁嵌在翠屏峰峭壁上" style="object-position:center 48%" loading="lazy" decoding="async">
+            <figcaption><b>峭壁上的寺</b><span><a href="https://commons.wikimedia.org/wiki/File:Hunyuan_Xuankong_Si_2013.08.30_09-02-11.jpg">Zhangzhugang</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></span></figcaption>
+          </figure>
           <p class="intro">悬空寺嵌在浑源翠屏峰的峭壁上，从应县再走一个多小时。冬天谷风大，栈道窄。登临票每天限量，要和入园票分开买，景区摆渡也会占去时间。台阶一旦结冰就可能临时关闭，那时在谷底看整座寺，不必硬上，一样能看全。</p>
           <p class="hi"><i>亮点</i>峭壁上的寺院 · 登临票要提前买 · 结冰就在谷底看</p>
         </li>
@@ -940,7 +1024,7 @@
     </section>
   </main>
   <footer>
-    票价、车程和开放时间按 2026 年 11 月仍能核对到的公开信息整理，出行前以 12306 和景区当日公告为准。平遥通票一般含城墙、日升昌、县衙，不含双林寺，进门前再看一眼当日项目。云冈 4 月至 10 月是旺季票，大约 120 元。
+    票价、车程和开放时间按 2026 年 11 月仍能核对到的公开信息整理，出行前以 12306 和景区当日公告为准。平遥通票一般含城墙、日升昌、县衙，不含双林寺，进门前再看一眼当日项目。云冈 4 月至 10 月是旺季票，大约 120 元。景点照片都是实拍，拍摄季节各不相同，作者和许可写在每张照片下面。
   </footer>
 </div>
 <script>
