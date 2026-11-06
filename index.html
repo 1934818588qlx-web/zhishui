@@ -246,6 +246,15 @@
     overflow: hidden;
   }
   .map svg { display: block; width: 100%; height: auto; }
+  .map-car { pointer-events: none; }
+  .map-car .lamp { animation: map-lamp 1.5s ease-in-out infinite; }
+  .map-car .flake { animation: map-flake 1.6s ease-in-out infinite; }
+  .map-car .flake.b { animation-delay: -.7s; }
+  @keyframes map-lamp { 50% { opacity: .35; } }
+  @keyframes map-flake {
+    0%, 100% { opacity: .15; }
+    50% { opacity: .95; }
+  }
   .map-note {
     display: flex;
     gap: 14px;
@@ -508,10 +517,11 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .snow { display: none; }
+    .map-car .lamp, .map-car .flake { animation: none; }
   }
   @media print {
     body { background: #fff; }
-    .nav-bar, .nav, .snow, .lang-switch { display: none; }
+    .nav-bar, .nav, .snow, .lang-switch, .map-car { display: none; }
     .book { width: auto; background-image: none; }
     .budget, .photo { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   }
@@ -621,6 +631,33 @@
             <text x="118" y="254">1</text>
             <text x="246" y="334">3</text>
             <text x="118" y="424">2</text>
+          </g>
+          <path id="route-drive" fill="none" stroke="none" d="M118 250 L118 420 Q168 386 246 330 Q200 286 118 250 L118 72 Q176 78 250 128 L262 214 Q318 150 132 78 L104 78 C46 150 52 200 104 250 L118 250"/>
+          <g class="map-car" aria-hidden="true">
+            <ellipse cx="1.2" cy="2.2" rx="16" ry="8" fill="#1c1916" opacity="0.16"/>
+            <rect x="-16" y="-8.5" width="32" height="17" rx="6" fill="#9c3a2c"/>
+            <rect x="-6" y="-6.2" width="13" height="12.4" rx="3" fill="#f7f1e4"/>
+            <rect x="4.6" y="-4.4" width="2.8" height="8.8" rx="0.8" fill="#d4e4ee"/>
+            <circle class="lamp" cx="14.2" cy="-4.5" r="1.7" fill="#ffe08a"/>
+            <circle class="lamp" cx="14.2" cy="4.5" r="1.7" fill="#ffe08a"/>
+            <g fill="#1c1916">
+              <circle cx="-9" cy="-8.6" r="2.5"/>
+              <circle cx="8" cy="-8.6" r="2.5"/>
+              <circle cx="-9" cy="8.6" r="2.5"/>
+              <circle cx="8" cy="8.6" r="2.5"/>
+            </g>
+            <g fill="#f7f1e4">
+              <circle cx="-9" cy="-8.6" r="0.9"/>
+              <circle cx="8" cy="-8.6" r="0.9"/>
+              <circle cx="-9" cy="8.6" r="0.9"/>
+              <circle cx="8" cy="8.6" r="0.9"/>
+            </g>
+            <ellipse cx="-1" cy="-9.2" rx="6.2" ry="2.2" fill="#ffffff"/>
+            <circle class="flake a" cx="-20" cy="-3" r="1.15" fill="#ffffff"/>
+            <circle class="flake b" cx="-23" cy="3.2" r="0.8" fill="#ffffff"/>
+            <animateMotion dur="26s" repeatCount="indefinite" rotate="auto" calcMode="linear" keyPoints="0;0;0.1265;0.1265;0.2429;0.2429;0.3557;0.3557;0.4881;0.4881;0.5958;0.5958;0.6604;0.6604;1" keyTimes="0;0.032;0.1302;0.1622;0.2525;0.2845;0.372;0.404;0.5068;0.5388;0.6223;0.6543;0.7045;0.7365;1">
+              <mpath href="#route-drive"/>
+            </animateMotion>
           </g>
         </svg>
         <p class="map-note"><span><i></i>游览顺序</span><span><i class="back"></i>第五日高铁返回</span></p>
@@ -1362,6 +1399,14 @@
   links.forEach(function (a) { map[a.getAttribute("href").slice(1)] = a; });
   var nav = document.querySelector(".nav");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) {
+    var car = document.querySelector(".map-car");
+    if (car) {
+      var motion = car.querySelector("animateMotion");
+      if (motion) motion.remove();
+      car.setAttribute("transform", "translate(118 250)");
+    }
+  }
   var obs = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (!entry.isIntersecting) return;
